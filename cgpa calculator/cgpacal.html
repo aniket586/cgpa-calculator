@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CGPA Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+
+        .navbar {
+            width: 100%;
+            background-color: white; /* Set navbar background color to white */
+            padding: 10px 0; /* Add padding to the navbar */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add a shadow to the navbar */
+            
+        }
+
+        .navbar a {
+            text-decoration: none;
+            color: #0056b3;; /* Set link color to black */
+            margin-right: 20px; /* Add space between navbar links */
+            font-weight: bold;
+        }
+
+        .content-wrapper {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: calc(100vh - 40px); /* Adjust height for the footer and navbar */
+            width: 100%;
+            background-image: url('stock images/calbg.jpeg'); /* Replace with your image URL */
+            background-size: cover;
+            background-position: center;
+        }
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            text-align: center;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        .semesters {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .semester {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .semester label {
+            flex: 1;
+            text-align: left;
+        }
+
+        .semester input {
+            flex: 2;
+            padding: 5px;
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+
+        #percentage {
+            margin-top: 10px;
+            font-size: 1em;
+            font-weight: normal;
+        }
+
+        footer {
+            margin-top: 20px;
+            font-size: 0.8em;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <a href="index.html">Home Page</a>
+    </div>
+    <div class="content-wrapper">
+        <div class="container">
+            <h1>CGPA Calculator</h1>
+            <div class="semesters">
+                <div class="semester">
+                    <label for="sem1">Sem 1:</label>
+                    <input type="number" id="sem1" step="0.01" min="0" max="10">
+                </div>
+                <div class="semester">
+                    <label for="sem2">Sem 2:</label>
+                    <input type="number" id="sem2" step="0.01" min="0" max="10">
+                </div>
+                <div class="semester">
+                    <label for="sem3">Sem 3:</label>
+                    <input type="number" id="sem3" step="0.01" min="0" max="10">
+                </div>
+                <div class="semester">
+                    <label for="sem4">Sem 4:</label>
+                    <input type="number" id="sem4" step="0.01" min="0" max="10">
+                </div>
+                <div class="semester">
+                    <label for="sem5">Sem 5:</label>
+                    <input type="number" id="sem5" step="0.01" min="0" max="10">
+                </div>
+                <div class="semester">
+                    <label for="sem6">Sem 6:</label>
+                    <input type="number" id="sem6" step="0.01" min="0" max="10">
+                </div>
+            </div>
+            <button onclick="calculateCGPA()">Calculate</button>
+            <div id="result"></div>
+            <div id="percentage"></div>
+        </div>
+    </div>
+    <footer>
+        &copy; All rights reserved to DevAniket
+    </footer>
+    <script>
+        function calculateCGPA() {
+            let totalSGPA = 0;
+            let numOfSemesters = 6;
+
+            for (let i = 1; i <= numOfSemesters; i++) {
+                let sgpa = parseFloat(document.getElementById(`sem${i}`).value);
+                if (!isNaN(sgpa) && sgpa >= 0 && sgpa <= 10) {
+                    totalSGPA += sgpa;
+                } else {
+                    alert(`Please enter a valid SGPA for Semester ${i}`);
+                    return;
+                }
+            }
+
+            let cgpa = totalSGPA / numOfSemesters;
+            let percentage = (cgpa - 0.75) * 10; // Example conversion formula
+            document.getElementById('result').innerText = `Your CGPA is: ${cgpa.toFixed(2)}`;
+            document.getElementById('percentage').innerText = `Your Percentage is: ${percentage.toFixed(2)}%`;
+        }
+    </script>
+</body>
+</html>
